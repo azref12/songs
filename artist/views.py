@@ -16,7 +16,7 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 import datetime
 from rest_framework import generics
 from functools import reduce
-import operator
+# import operator
 # from django.db.models import Q
 
 t = datetime.datetime.now()
