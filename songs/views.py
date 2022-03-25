@@ -24,9 +24,9 @@ class SongList (generics.ListCreateAPIView) :
         serializer_class = MySongSerializer
         DecodedGenerator = api_view
         permission_classes = [AllowAny]
-        filter_backends = [DjangoFilterBackend,SearchFilter, OrderingFilter]
+        filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
         filterset_fields = ['id_songs','code_song'] 
-        ordering_fields = ['id_songs','code_song']
+        ordering_fields = ['id_songs','code_song','title_song','alias1','alias2','alias3']
         search_fields = ['id_songs','code_song','title_song','alias1','alias2','alias3'] 
         
 class SongDetail (generics.RetrieveUpdateDestroyAPIView) :
@@ -34,8 +34,8 @@ class SongDetail (generics.RetrieveUpdateDestroyAPIView) :
         serializer_class = MySongSerializer
         DecodedGenerator = api_view
         permission_classes = [AllowAny]
-        filter_backends = [DjangoFilterBackend,SearchFilter, OrderingFilter]
+        filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
         filterset_fields = ['id_songs','code_song'] 
-        ordering_fields = ['id_songs','code_song']
+        ordering_fields = ['id_songs','code_song','title_song','alias1','alias2','alias3']
         search_fields = ['id_songs','code_song','title_song','alias1','alias2','alias3']
 
