@@ -2,7 +2,7 @@ from rest_framework import serializers
 from .models import artist
 
 class MyArtistSerializer(serializers.ModelSerializer):
-    foto_artist = serializers.SerializerMethodField()
+    # foto_artist = serializers.SerializerMethodField()
     
     class Meta:
         model = artist  
