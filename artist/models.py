@@ -11,7 +11,7 @@ class artist (models.Model) :
     aliasname1 = models.CharField(max_length=100, null=False)
     aliasname2 = models.CharField(max_length=100, null=False)
     aliasname3 = models.CharField(max_length=100, null=False)
-    foto_artist = models.ImageField(upload_to='media/artist', storage=fs, null=True)
+    foto_artist = models.ImageField(upload_to='media/artist', storage=fs, blank=True)
     
     def __srt__(self) :
         return self.artist_name, self.aliasname1, self.aliasname2, self.aliasname3
