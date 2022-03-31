@@ -6,6 +6,6 @@ fs = FileSystemStorage(location='.')
 class youtube (models.Model) :
     id_ytb = models.AutoField(primary_key=True)
     id_song = models.IntegerField(blank=False,default=0)
-    url = models.URLField(max_length=200)   
+    url = models.URLField(max_length=200)    
 
 

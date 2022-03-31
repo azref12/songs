@@ -7,5 +7,5 @@ class MyRootSerializer(serializers.ModelSerializer):
         model = root  
         fields = [
                     'id_root',
-                    'path',    
+                    'paths',    
                 ]

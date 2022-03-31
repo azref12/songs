@@ -5,5 +5,5 @@ fs = FileSystemStorage(location='.')
 
 class root (models.Model) :
     id_root = models.AutoField(primary_key=True)
-    path = models.CharField(max_length=200)
+    paths = models.CharField(max_length=200)
  

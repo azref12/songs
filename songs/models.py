@@ -16,7 +16,7 @@ class song (models.Model) :
     alias1 = models.CharField(max_length=100, null=False)
     alias2 = models.CharField(max_length=100, null=False)
     alias3 = models.CharField(max_length=100, null=False)
-    path = models.CharField(max_length=200)
+    paths = models.CharField(max_length=200)
     xvoc = models.IntegerField(blank=False, default=0)
     voc = models.IntegerField(blank=False, default=0)
     vol=models.IntegerField(blank=False, default=0)
