@@ -1,6 +1,8 @@
 from django.contrib import admin
 from rest_framework import routers
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 from artist import views
 from artist import view_artist
 from .views import *
@@ -24,4 +26,6 @@ urlpatterns = [
     path ('artist/', view_artist.ArtistList.as_view(queryset=artist.objects.all(), serializer_class=MyArtistSerializer), name='ArtistList')
 ]
  
-urlpatterns += router.urls 
+# urlpatterns += router.urls
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
