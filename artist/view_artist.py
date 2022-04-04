@@ -3,7 +3,7 @@ from rest_framework.authentication import SessionAuthentication, BasicAuthentica
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import OrderingFilter, SearchFilter
 from url_filter.integrations.drf import DjangoFilterBackend
-from rest_framework import filters
+from rest_framework import filters,status
 from rest_framework.response import Response
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -33,6 +33,5 @@ class ArtistList (generics.ListCreateAPIView) :
         filterset_fields = ['id_artist','code_artist','artist_name','aliasname1','aliasname2','aliasname3'] 
         ordering_fields = ['id_artist','code_artist']
         search_fields = ['id_artist','code_artist','artist_name','aliasname1','aliasname2','aliasname3']
-
         
 

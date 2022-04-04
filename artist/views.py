@@ -20,8 +20,10 @@ import os
 from re import X
 from django.db import DatabaseError, transaction
 from django.db.utils import IntegrityError
+from django.core.files.storage import FileSystemStorage
 
 t = datetime.datetime.now() 
+fs = FileSystemStorage(location='.')
 
 if __name__ == "__main__":
     print(artist.objects.all())

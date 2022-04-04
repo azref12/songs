@@ -23,7 +23,8 @@ urlpatterns = [
     path ('logout/', LogoutView.as_view(), name='auth_logout'),
     path ('artist/artist_list/', views.artist_list, name='artist_list'),
     path ('artist/artist_detail/<int:pk>/', views.artist_detail, name='artist_detail'),
-    path ('artist/', view_artist.ArtistList.as_view(queryset=artist.objects.all(), serializer_class=MyArtistSerializer), name='ArtistList')
+    path ('artist/', view_artist.ArtistList.as_view(queryset=artist.objects.all(), serializer_class=MyArtistSerializer), name='ArtistList'),
+    # path ('artist/upload/', views.upload, name='upload')
 ]
  
 # urlpatterns += router.urls
