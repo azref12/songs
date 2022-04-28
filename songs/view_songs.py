@@ -20,7 +20,7 @@ if __name__ == "__main__":
     print(song.objects.all())
     
 class SongList (generics.ListCreateAPIView) :
-        queryset = root.objects.all()
+        queryset = song.objects.all()
         serializer_class = MySongSerializer
         DecodedGenerator = api_view
         permission_classes = [AllowAny]
@@ -30,7 +30,7 @@ class SongList (generics.ListCreateAPIView) :
         search_fields = ['id_songs','code_song','title_song','alias1','alias2','alias3'] 
         
 class SongDetail (generics.RetrieveUpdateDestroyAPIView) :
-        queryset = root.objects.all() 
+        queryset = song.objects.all() 
         serializer_class = MySongSerializer
         DecodedGenerator = api_view
         permission_classes = [AllowAny]

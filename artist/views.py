@@ -1,23 +1,21 @@
-#from rest_framework.response import Response
+from rest_framework.response import Response
 #from rest_framework.authtoken.views import ObtainAuthToken
 #from django.shortcuts import render
 #from rest_framework.renderers import JSONRenderer
 #from rest_framework.views import APIView
+from distutils.command.upload import upload
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from inspect import isfunction
 from msilib.schema import AppId
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from rest_framework.parsers import JSONParser
+from rest_framework.decorators import parser_classes
+from rest_framework.parsers import JSONParser, MultiPartParser
 from .serializers import MyArtistSerializer
 from .models import *
 from .serializers import *
 from rest_framework.decorators import api_view, permission_classes
 import datetime
-from pathlib import Path
-from decouple import Config ,RepositoryEnv, Csv
-import os
-from re import X
 from django.db import DatabaseError, transaction
 from django.db.utils import IntegrityError
 from django.core.files.storage import FileSystemStorage
@@ -55,7 +53,7 @@ def artist_list (request):
                 mastermodel = artist
                 masterserialzer = MyArtistSerializer
                 localrequest = JSONParser().parse(request)
-                localserializer = masterserialzer(data=localrequest)
+                localserializer = masterserialzer(data=localrequest) 
                 if localserializer.is_valid():
                         try:
                                 res = artist.objects.filter(id_artist__contains=y).last()
@@ -71,6 +69,7 @@ def artist_list (request):
 
                                         if localserializer.is_valid():
                                                 artists = artist.objects.filter(id_artist = localrequest['id_artist']).first()
+                                                upload = artist.objects.get(localrequest['files'])
 
                                                 artistSave = artist ( 
                                                                 id_artist = artists,
@@ -79,14 +78,14 @@ def artist_list (request):
                                                                 aliasname1=localserializer.data.get("aliasname1"),
                                                                 aliasname2=localserializer.data.get("aliasname2"),
                                                                 aliasname3=localserializer.data.get("aliasname3"),
-                                                                foto_artist=localserializer.data.get("foto_artist")
+                                                                foto_artist=upload
                                                         )
                                                 artistSave.save()
                                         transaction.savepoint_commit(sid)
                                 except IntegrityError:
                                         transaction.savepoint_rollback(sid)
 
-                                ModelMaster = artist.objects.filter(id)
+                                ModelMaster = artist.objects.filter(y)
                                 MasterSerializer = MyArtistSerializer(ModelMaster, many=True)
                                 
                                 formater = {
@@ -94,8 +93,9 @@ def artist_list (request):
 
                                 }
                             
-                                return JsonResponse({'message' : 'successfully' , 'status' : True , 'count' : 1 , 'results' : formater},
+                                return Response({'message' : 'successfully' , 'status' : True , 'count' : 1 , 'results' : formater},
                                     status=201)  
+                return Response(localserializer.errors, status=400)
 
 @csrf_exempt
 @api_view(["GET", "PUT", "PATCH", "DELETE"])
@@ -125,7 +125,13 @@ def artist_detail(request, pk):
                 localserializer = masterserialzer(localmodel, data=localrequest) 
 
                 if localserializer.is_valid(): 
-                
+                        # update = artist.objects.get(foto_artist = localrequest['foto_artist']).first()
+
+                        # artistSave = artist (
+                        #                         id_artist = update,
+                        #                         foto_artist=localserializer.data.get("foto_artist")
+                        #                     )
+                        # artistSave.save()
                         localserializer.save()  
                 
                         localmodel = mastermodel.objects.all()
@@ -138,6 +144,13 @@ def artist_detail(request, pk):
         elif request.method == 'PATCH':
                 localserializer = masterserialzer(localmodel, data={'status':0}, partial=True)
                 if localserializer.is_valid():
+                        # update = artist.objects.get(foto_artist = localrequest['foto_artist']).first()
+
+                        # artistSave = artist (
+                        #                         id_artist = update,
+                        #                         foto_artist=localserializer.data.get("foto_artist")
+                        #                     )
+                        # artistSave.save()
                         localserializer.save()
                         return JsonResponse({'message': 'Success'}, status=200)
                 else:
